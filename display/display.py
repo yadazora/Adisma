@@ -7,6 +7,7 @@ from tkinter import filedialog
 import winsound
 import pickle
 import pygame
+from pygame import mixer
 
 #......class Adisma displays the boot up screen of the adisma player
 class Adisma:
@@ -24,16 +25,37 @@ class Adisma:
 
 
 
-
+#.................Defines the player window
 class adisma_window:
 	def __init__(self, window):
-		self.rightframe = Frame(window, highlightbackground="grey" ,width=400, height=400, highlightthickness=2)
-		self.rightframe.config(bg="black")
-		self.rightframe.pack(side=RIGHT,fill=BOTH)
-		self.box = Frame(window, bg="red",width=200, height=400)
-		self.box.pack(side=LEFT,fill=BOTH)
-		self.audacity = Label(self.box, text=" |> ADISMA", width=20, height=20, fg="red", bg="black")
+		'''main frame to hold the right frame and the left frame'''
+		self.mainframe = Frame(window, highlightbackground="black", highlightthickness=2)
+		self.mainframe.config(bg="black")
+		self.mainframe.pack(fill=BOTH)
+		'''Top mainframe holding other frames'''
+		self.rightframe = Frame(self.mainframe,width=400, height=400, highlightthickness=2)
+		self.rightframe.pack(side=RIGHT,fill=BOTH,expand=True)
+		'''rightframe holding right side of the mainframe'''
+		self.leftframe = Frame(self.mainframe, bg="red",width=400, height=400)
+		self.leftframe.pack(side=LEFT,fill=BOTH,expand=True)
+		'''defines left frame of the mainframe'''
+		#Audacity defines the adisma welcome text to be replaced by album art
+		self.audacity = Label(self.leftframe, text=" |> ADISMA",  fg="red", bg="black")
+		self.audacity.config(font=("", 20))
 		self.audacity.pack()
+		#Motivation defines the text adisma ***none important element
+		self.motivation = Label(self.rightframe, text="|> ADISMA",fg="red",bg="black")
+		self.motivation.pack(fill=BOTH)# expand false
+		'''Defines the album art'''
+		self.ico = PhotoImage(file="unnamed.png")
+		self.labek = Label(window, image=self.ico, bg="black")
+		self.labek.pack(fill=BOTH)
+
+		#Music control buttons
+		self.play = Button(self.rightframe, text="PlAY" ,command=self.play, bg="black", fg="red")
+		self.play.pack(fill=BOTH)
+		self.pause = Button(self.rightframe, text="STOP", command=self.stop ,bg="black", fg="red")
+		self.pause.pack(fill=BOTH)
 
 		#self.play = Button(self.rightframe, text="Play", fg="red", bg="blue",  command=self.play)
 		#self.play.pack(fill=BOTH)
@@ -73,27 +95,38 @@ class adisma_window:
 	def openPlayList(self):
 		# using pickle
 		root.playListFileI = filedialog.askopenfilename(initialdir="/", title="Select your cool music track",
-														filetypes=(("Python File", ".py"), ("Text File", ".txt")))
+														#filetypes=(("Python File", ".py"), ("Text File", ".txt")))
+														filetypes = (("mp3 files","*.mp3"),("all files","*.*")))
+    #window.filename = tkFileDialog.askopenfilename(initialdir = "",title = "Select file",filetypes = (("mp3 files","*.mp3"),("all files","*.*")))
+
+
 		input = open(root.playListFileI, 'rb')
 		root.playlist = pickle.load(input)
 
 		input.close()
 
 	def play(self):
-		if (root.songAdded == False):
-			root.screenMessage.set("First add some Music man!")
-		else:
-			try:
-				if (root.pauseFlag == True):
-					pygame.mixer.music.unpause()
-				else:
-					print("Playing")
-					pygame.mixer.init()
-					pygame.mixer.music.load(root.playlist[root.i])
-					pygame.mixer.music.play()
-					root.screenMessage.set("Playing " + root.playlist[root.i])
-			except:
-				print("Could not play the music")
+		 mixer.init()
+		 mixer.music.load('01 Paris_250918094501.mp3')
+		 mixer.music.play()
+
+		#if (root.songAdded == False):
+		#	root.screenMessage.set("First add some Music man!")
+		#else:
+		#	try:
+		#		if (root.pauseFlag == True):
+		#			pygame.mixer.music.unpause()
+		#		else:
+		#			print("Playing")
+		#			pygame.mixer.init()
+		#			pygame.mixer.music.load(root.playlist[root.i])
+		#			pygame.mixer.music.play()
+		#			root.screenMessage.set("Playing " + root.playlist[root.i])
+		#	except:
+		#		print("Could not play the music")
+
+
+
 
 	def pauseMusic():
 		if (root.songAdded == False):
@@ -106,61 +139,24 @@ class adisma_window:
 			except:
 				print("Cannot Pause the Music")
 
-	def stopMusic():
-		if (root.songAdded == False):
+	def stop(self):
+		'''if (root.songAdded == False):
 			root.screenMessage.set("First add some Music man!")
 		else:
 			pygame.mixer.music.fadeout(600)
 			root.screenMessage.set("End of Playback!")
+'''
+		mixer.music.stop()
 
-	def prevMusic():
-		if (root.songAdded == False):
-			root.screenMessage.set("First add some Music man!")
-		else:
-			try:
-				if (root.playlist[root.i - 1]):
-					root.i -= 1
-					playMusic()
-				else:
-					print("No previous songs")
-					root.screenMessage.set("No previous songs")
-			except:
-				stopMusic()
-				print("No previous songs")
-
-	def nextMusic():
-		if (root.songAdded == False):
-			root.screenMessage.set("First add some Music man!")
-		else:
-			try:
-
-				if (root.playlist[root.i]):
-					root.i += 1
-					playMusic()
-				else:
-					root.i -= 1
-			except:
-				root.screenMessage.set("End of Playback, Please add more songs")
-
-	def end():
-		exit()
-
-	def help():
-		webbrowser.open("www.malibuinc.dx.am")
-
-	def contact():
-		webbrowser.open("www.malibuinc.dx.am")
-
-	def contribute():
-		webbrowser.open("www.malibuinc.dx.am")
 
 
 root = Tk()
 root.title("ADISMA 2.0 COPYRIGHT MALIBU")
 c = Adisma(root)
-root.after(5000, lambda: root.destroy())
+root.after(1000, lambda: root.destroy())
 root.mainloop()
 root = Tk()
 root.title("MALIBU'S ADISMA")
+root.minsize(550,200)
 d = adisma_window(root)
 root.mainloop()
