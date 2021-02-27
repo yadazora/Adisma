@@ -107,7 +107,7 @@ class adisma_window:
 
 	def play(self):
 		 mixer.init()
-		 mixer.music.load('01 Paris_250918094501.mp3')
+		 mixer.music.load('paris.mp3')
 		 mixer.music.play()
 
 		#if (root.songAdded == False):
