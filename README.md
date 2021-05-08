@@ -1,25 +1,53 @@
-### Adisma
-### LEARN TO BUILD A MUSIC PLAYER WITH TKINTER & PYGAME
+
+# ADISMA |>
+<img src="coprate/screenshots/entrance.png">
+
+Adisma is a tkinter class based music player with a focus on learning
+to easily structure projects for easier use
 
 
-<P>
-<b>CONTRIBUTE TO THIS SIMPLISTIC MUSIC PLAYER AND ENJOY PYTHON SCRIPTING</b>
-</P>
 
-### Malibu 2018
+## Authors and Acknowledgement
 
-#Fork and work on this project as it is not being worked on anymore
+- [@michelangeloTM](https://www.github.com/katherinepeterson) for development and design.
 
-### HOW TO RUN
-<p>
-1. Install python3
-<hr>
-2. Install requirements with pip install -r requirements.txt
-<hr>
-3. Run the python script on CMD/ POWERSHELL / {WSL-not tested}
-<hr>
-4. cd into Adisma - bin app.py {run python app.py & hit play}
-</p>
-<hr>
+  
+## Badges
 
-### Not under active Development Anymore {feel free to contribute}
+
+
+
+[![Python](https://img.shields.io/badge/python-v3.7-blue)]()
+
+## Contributing
+
+You are welcome to contribute to this project
+
+
+
+  
+## Installation 
+
+Install my-project with npm
+
+```bash 
+  pip install -r requirements.txt
+```
+    
+## Deployment
+
+To deploy this project run
+
+```bash
+  python3 main.py
+```
+
+  
+## Screenshots
+
+<img src="coprate/screenshots/player.png">
+
+  
+## Tech Stack
+
+**MODULES:** Tkinter, Pygame
