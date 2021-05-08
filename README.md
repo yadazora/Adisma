@@ -9,7 +9,7 @@ to easily structure projects for easier use
 
 ## Authors and Acknowledgement
 
-- [@michelangeloTM](https://www.github.com/katherinepeterson) for development and design.
+- [@michelangeloTM](https://www.github.com/michelangeloTM) for development and design.
 
   
 ## Badges
