@@ -7,7 +7,7 @@ import os
 root = Tk()
 root.title("ADISMA 2.0 COPYRIGHT MALIBU")
 c = Adisma(root)
-root.after(10000, lambda: root.destroy())
+root.after(1000, lambda: root.destroy())
 root.mainloop()
 root = Tk()
 root.title("MALIBU'S ADISMA")
